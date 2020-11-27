@@ -13,5 +13,5 @@ refLink: https://docs.djangoproject.com/en/3.1/intro/tutorial01/
 ### setup
 * django-admin startproject mysite
 * python manage.py startapp polls
-* django manage.py runserver
+* python manage.py runserver
 
