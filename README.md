@@ -20,3 +20,11 @@ refLink: https://docs.djangoproject.com/en/3.1/intro/tutorial01/
 * docker-compose build
 * docker-compose up
 (try using sudo in case of any errors)
+
+#### docker push commands
+* docker login
+* docker tag local-image:tagname username/new-repo:tagname
+* docker push username/new-repo:tagname
+
+#### docker pull command
+* docker pull username/new-repo:tagname
