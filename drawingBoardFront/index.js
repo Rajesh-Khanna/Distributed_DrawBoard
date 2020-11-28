@@ -10,14 +10,28 @@ const apiCall = async(path, messageBody) => {
         },
     });
     const resp = await response; //extract JSON from the http response
-    if (resp.status !== 201)
+    if (resp.status >= 300)
         alert('check the server!');
     return resp.json();
 }
 
+const getApiCall = async(path, messageBody) => {
+    var url = new URL(`http://127.0.0.1:8000/api/${path}/`),
+        params = messageBody
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+    const response = await fetch(url, { method: 'GET' });
+    const resp = await response; //extract JSON from the http response
+    console.log(resp.status);
+    if (resp.status >= 300)
+        alert('check the server!');
+    return resp.json();
+}
+
+
 const startApp = () => {
     document.querySelector('#workSpace').style.visibility = 'visible';
     document.querySelector('#entryPage').style.display = 'none';
+    startSyncing();
 }
 
 const createWorkSpace = async() => {

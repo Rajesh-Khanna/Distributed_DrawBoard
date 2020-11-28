@@ -1,6 +1,7 @@
 let currShape = new activeShape();
 let drawing = false;
-const allShapes = [];
+let myShapes = [];
+let othersShapes = [];
 
 function setup() {
     let cnv = createCanvas(1000, 600);
@@ -10,7 +11,10 @@ function setup() {
 
 function draw() {
     background(225);
-    allShapes.forEach(element => {
+    myShapes.forEach(element => {
+        element.drawShape();
+    });
+    othersShapes.forEach(element => {
         element.drawShape();
     });
     if (drawing) {
@@ -34,8 +38,8 @@ function mouseReleased() {
         currShape.setEnd(mouseX, mouseY);
         const copyObj = new Shape();
         copyObj.copy(currShape.clone());
-        allShapes.push(copyObj);
-        console.log(allShapes);
+        myShapes.push(copyObj);
+        console.log(myShapes);
         drawing = false;
     }
 }
