@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>drawingBoardFront</title>
+
+    <script src="main.js"></script>
+    <script src="libraries/p5.js"></script>
+    <script src="libraries/p5.dom.js"></script>
+    <script src="libraries/p5.sound.js"></script>
+    <script src="sketch.js"></script>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        canvas {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row m-4">
+        <div class="col text-center">
+            <h4>
+                Welcome to collaborative drawing board
+            </h4>
+        </div>
+    </div>
+    <div class="row m-4">
+        <div class="col">
+            <div id="drawBoard"></div>
+        </div>
+        <div class="col">
+            <div class='text-center font-weight-bold'>
+                Tools
+            </div>
+            <div class="d-flex flex-column">
+                <p class='pl-4'>Shapes</p>
+                <button class="btn btn-outline-secondary m-1" id='shapeSelector-circle'>circle</button>
+                <button class="btn btn-outline-secondary m-1" id='shapeSelector-rectangle'>rectangle</button>
+                <button class="btn btn-outline-secondary m-1" id='shapeSelector-line'>line</button>
+                <button class="btn btn-outline-secondary m-1" id='shapeSelector-text'>text</button>
+                <textarea id='textInputField'>  </textarea>
+            </div>
+            <hr/>
+            <div class="d-flex flex-column">
+                <button class="btn btn-outline-info m-1">copy invitation link </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
