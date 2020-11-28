@@ -3,7 +3,7 @@ let drawing = false;
 const allShapes = [];
 
 function setup() {
-    let cnv = createCanvas(800, 600);
+    let cnv = createCanvas(1000, 600);
     cnv.parent('drawBoard');
     noFill();
 }
