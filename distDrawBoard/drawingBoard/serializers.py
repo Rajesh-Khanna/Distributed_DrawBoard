@@ -83,9 +83,11 @@ class JoinWSSerializer(serializers.ModelSerializer):
         )
         return userWorkSpace
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = models.Shape
-#         fields = ('typeOfShape','x1','x2','y1','y2','radius','text','WorkSpace')
-#     def create(self, validated_data):
+class UpdateWSSerializer(serializers.ModelSerializer):
+
+    workSpaceId = serializers.CharField(source='workSpace.workSpaceId', read_only = True)
+    class Meta:
+        model = models.Shape
+        fields = ('id', 'typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text','workSpaceId')
+    # def create(self, validated_data):
         
