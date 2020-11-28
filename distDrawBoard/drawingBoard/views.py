@@ -38,7 +38,7 @@ class UpdateDrawBoard(generics.ListAPIView):
     def get_queryset(self):
         lastId = self.request.query_params.get('lastEntityId', None)
         workSpaceId = self.request.query_params.get('workSpaceId', None)
-        return self.model.objects.filter(id__gte=lastId, workSpace__workSpaceId = workSpaceId)
+        return self.model.objects.filter(id__gt=lastId, workSpace__workSpaceId = workSpaceId)
         
 # class DrawOnBoard(ModelViewSet):
 
@@ -90,7 +90,6 @@ class DrawOnBoard(APIView):
         print('-------------->',request,'<-------------------')
         print(request.data)
         serializer = serializers.DrawOnBoardSerializer(data=request.data)
-        print(request.data["workSpaceId"])
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
