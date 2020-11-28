@@ -11,9 +11,15 @@ https://meet.google.com/eqz-zehf-srw?authuser=1&hl=en
 refLink: https://docs.djangoproject.com/en/3.1/intro/tutorial01/
 ---
 ### setup
-* django-admin startproject mysite
-* python manage.py startapp polls
-* python manage.py runserver
+* git clone https://github.com/Rajesh-Khanna/Distributed_DrawBoard.git
+* when ever you update datebase -> 
+```console
+foo@bar:~$ python3 start.py db
+```
+* to run server -> 
+```console
+foo@bar:~$ python3 start.py
+```
 
 ---
 ### docker setup
