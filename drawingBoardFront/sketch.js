@@ -7,6 +7,7 @@ function setup() {
     let cnv = createCanvas(1000, 600);
     cnv.parent('drawBoard');
     noFill();
+    textSize(16);
 }
 
 function draw() {
@@ -19,9 +20,6 @@ function draw() {
     });
     if (drawing) {
         currShape.setEnd(mouseX, mouseY);
-        if (currShape.type === 'text') {
-
-        }
         currShape.drawShape();
     }
 }
@@ -34,11 +32,11 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-    if (drawing && currShape.props.type !== 'text') {
+    if (drawing) {
         currShape.setEnd(mouseX, mouseY);
         const copyObj = new Shape();
         copyObj.copy(currShape.clone());
-        myShapes.push(copyObj);
+        pushShape(copyObj)
         console.log(myShapes);
         drawing = false;
     }
@@ -52,6 +50,8 @@ window.addEventListener('load', () => {
     document.querySelector('#shapeSelector-text').addEventListener('click', () => {
         currShape.setType('text');
         document.querySelector('#textInputField').focus();
+        drawing = true;
+        currShape.setStart(0, 0);
     });
 
     document.querySelector('#textInputField').addEventListener('input', () => {
