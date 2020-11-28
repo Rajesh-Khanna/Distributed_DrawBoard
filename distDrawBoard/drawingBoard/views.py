@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from drawingBoard import serializers
 from rest_framework.views import APIView
+# from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
 from drawingBoard import models
+# from django.core.exceptions import ValidationError
 
 # Create your views here.
 class CreateWorkSpace(APIView):
@@ -34,12 +36,64 @@ class UpdateDrawBoard(generics.ListAPIView):
     model = serializer_class.Meta.model
 
     def get_queryset(self):
-        print("Request Data:")
-        print(self.request.data)
+        # print("Request Data:")
+        # print(self.request.data)
         lastId = self.request.data['lastEntityId']
         workSpaceId = self.request.data['workSpaceId']
-        a = self.model.objects.filter(id__gte=lastId, workSpace__workSpaceId = workSpaceId)
-        print(a)
         return self.model.objects.filter(id__gte=lastId, workSpace__workSpaceId = workSpaceId)
         
+# class DrawOnBoard(ModelViewSet):
 
+#     # Call UpdateDrawBoard function here?
+#     queryset = models.Shape.objects.all()
+#     serializer_class = serializers.DrawOnBoardSerializer
+
+#     def update(self, request):
+#         print("Request :")
+#         print(request)
+#         data = request.data.get("listOfShapes")
+#         print(data)
+#         serializer = self.get_serializer(data = data)
+#         self.perform_create(serializer)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # shapes = models.UserWorkSpace.objects.bulk_create(validated_data["listOfShapes"])
+        # return shapes
+
+    # def perform_create(self, serializer):
+    #     print(self.request.data)
+    #     """Save the post data when creating a new movie."""
+    #     serializer.save()
+
+    # def post(self, request, format=None):
+    #     print('-------------->',request,'<-------------------')
+    #     serializer = serializers.DrawOnBoardSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DrawListOnBoard(APIView):
+
+    def post(self, request, format=None):
+        print('-------------->',request,'<-------------------')
+        data = request.data
+        shapes_ = data["listOfShapes"]
+        for shape_ in shapes_:
+            serializer = serializers.DrawOnBoardSerializer(data=shape_)
+            if serializer.is_valid():
+                serializer.save()
+            print(shape_)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DrawOnBoard(APIView):
+
+    def post(self, request, format=None):
+        print('-------------->',request,'<-------------------')
+        print(request.data)
+        serializer = serializers.DrawOnBoardSerializer(data=request.data)
+        print(request.data["workSpaceId"])
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
