@@ -87,9 +87,21 @@ class JoinWSSerializer(serializers.ModelSerializer):
 class UpdateWSSerializer(serializers.ModelSerializer):
 
     workSpaceId = serializers.CharField(source='workSpace.workSpaceId', read_only = True)
+    # userCount = models.UserWorkSpace.objects.filter(workSpaceId =  workSpace.workSpaceId).count()
+    userCount = serializers.SerializerMethodField()
     class Meta:
         model = models.Shape
-        fields = ('id', 'typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text','workSpaceId')
+        fields = ('id', 'typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text','workSpaceId', 'userCount')
+
+    def get_userCount(self,obj):
+        return  models.UserWorkSpace.objects.filter(workSpace__workSpaceId = obj.workSpace.workSpaceId).count()
+
+class UsersOnBoardSerializer(serializers.ModelSerializer):
+    drawUserName = serializers.CharField(source='drawUser.name', read_only = True)
+    class Meta:
+        model = models.UserWorkSpace
+        fields = ('drawUserName','isAdmin','isActive','isAllowed')
+
     # def create(self, validated_data):
         
 # class DrawOnBoardSerializer(serializers.ModelSerializer):

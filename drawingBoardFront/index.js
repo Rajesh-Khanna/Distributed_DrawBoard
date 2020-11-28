@@ -40,7 +40,6 @@ const createWorkSpace = async() => {
     userInfo = {...workSpaceInfo };
 
     document.querySelector('#inviteLink').value = `${window.location.origin}?spaceId=${userInfo.workSpaceURL || ''}`;
-    document.querySelector('#currUser').innerHTML = `<b>You:</b> ${userInfo.name}`;
     startApp();
 };
 
@@ -50,7 +49,6 @@ const joinWorkSpace = async() => {
     userInfo = {...workSpaceInfo }
 
     document.querySelector('#inviteLink').value = `${window.location.origin}?spaceId=${userInfo.workSpaceURL || ''}`;
-    document.querySelector('#currUser').innerHTML = `<b>You:</b> ${userInfo.name}`;
     startApp();
 };
 

@@ -7,5 +7,6 @@ urlpatterns = [
     path('updateDrawBoard/',views.UpdateDrawBoard.as_view()),
     # path('drawOnBoard/',views.DrawOnBoard.as_view({'post': 'list'}))
     path('drawOnBoard/',views.DrawOnBoard.as_view()),
+    path('usersOnBoard/',views.UsersOnBoard.as_view()),
     path('drawAllOnBoard/',views.DrawListOnBoard.as_view())
 ]

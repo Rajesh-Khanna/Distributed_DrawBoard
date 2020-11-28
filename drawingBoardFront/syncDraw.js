@@ -1,5 +1,25 @@
 let lastEntityId = 0;
 const syncEvery = 1000;
+let usersInWorkSpace = 0;
+let updatingUsers = false;
+
+const updateUserCall = async() => {
+    const path = 'usersOnBoard';
+    if ('workSpaceId' in userInfo) {
+        const response = await getApiCall(path, { workSpaceId: userInfo.workSpaceId });
+        const participants = document.querySelector('#usersOnBoard');
+        if (participants) {
+            participants.innerHTML = '';
+            response.forEach(element => {
+                const li = document.createElement('li');
+                li.innerText = `${element.drawUserName}${element.isAdmin? '-(Admin)':''}-${element.isActive? '-(Active)':''}`;
+                participants.appendChild(li);;
+            });
+            usersInWorkSpace = response.length;
+            updatingUsers = false;
+        }
+    }
+}
 
 const formatData = data => {
     const jsonFormat = {
@@ -16,6 +36,10 @@ const formatData = data => {
         thick: data.thick,
         text: data.text,
     };
+    if (!updatingUsers && usersInWorkSpace !== data.userCount) {
+        updateUserCall();
+        updatingUsers = true;
+    }
     return jsonFormat;
 }
 

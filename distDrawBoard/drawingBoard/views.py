@@ -40,6 +40,14 @@ class UpdateDrawBoard(generics.ListAPIView):
         workSpaceId = self.request.query_params.get('workSpaceId', None)
         return self.model.objects.filter(id__gt=lastId, workSpace__workSpaceId = workSpaceId)
         
+class UsersOnBoard(generics.ListAPIView):
+    serializer_class = serializers.UsersOnBoardSerializer
+    model = serializer_class.Meta.model
+
+    def get_queryset(self):
+        workSpaceId = self.request.query_params.get('workSpaceId', None)
+        return self.model.objects.filter(workSpace__workSpaceId = workSpaceId)
+
 # class DrawOnBoard(ModelViewSet):
 
 #     # Call UpdateDrawBoard function here?
