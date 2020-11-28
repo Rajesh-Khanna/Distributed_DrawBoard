@@ -32,7 +32,7 @@ const createWorkSpace = async() => {
 
 const joinWorkSpace = async() => {
     const path = 'joinWorkSpace'
-    workSpaceInfo = await apiCall(path, { name: document.querySelector('#username').value });
+    workSpaceInfo = await apiCall(path, { name: document.querySelector('#username').value, workSpaceURL: userInfo.workSpaceURL });
     userInfo = {...workSpaceInfo }
 
     document.querySelector('#inviteLink').value = `${window.location.origin}?spaceId=${userInfo.workSpaceURL || ''}`;
@@ -40,11 +40,13 @@ const joinWorkSpace = async() => {
     startApp();
 };
 
+// checking if join or create
 window.addEventListener('load', () => {
     const url_string = window.location.href;
     var url = new URL(url_string);
     var spaceId = url.searchParams.get("spaceId");
     if (spaceId && spaceId.length) {
+        userInfo['workSpaceURL'] = spaceId;
         document.querySelector('#joinSpace').style.display = 'block';
     } else {
         document.querySelector('#createSpace').style.display = 'block';
