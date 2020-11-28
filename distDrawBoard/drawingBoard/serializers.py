@@ -2,6 +2,7 @@ from rest_framework import serializers
 from drawingBoard import models
 import random, string
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DrawUser
@@ -9,7 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('userId', )
 
     def create(self, validated_data):
-        print('create: ', validated_data)
         randId = ''
         while(True):
             randId = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(64))
@@ -20,3 +20,10 @@ class UserSerializer(serializers.ModelSerializer):
             userId=randId
         )
         return user
+
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = models.Shape
+#         fields = ('typeOfShape','x1','x2','y1','y2','radius','text','WorkSpace')
+#     def create(self, validated_data):
+        
