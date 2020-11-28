@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from drawingBoard import models
 import random, string
+# from rest_framework_mongoengine.serializers import DocumentSerializer
 
 class CreateWSSerializer(serializers.ModelSerializer):
     # workSpace = WorkSpaceSerializer()
@@ -91,3 +92,44 @@ class UpdateWSSerializer(serializers.ModelSerializer):
         fields = ('id', 'typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text','workSpaceId')
     # def create(self, validated_data):
         
+# class DrawOnBoardSerializer(serializers.ModelSerializer):
+    
+#     workSpaceId = serializers.CharField(source='workSpace.workSpaceId', read_only = True)
+#     class Meta:
+#         model = models.Shape
+#         fields = ('typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text','workSpaceId')
+    
+#     # def create(self, validated_data):
+#     #     print(validated_data)
+#     #     shapes = models.UserWorkSpace.objects.bulk_create(validated_data["listOfShapes"])
+#     #     return shapes
+
+class DrawOnBoardSerializer(serializers.ModelSerializer):
+    
+    workSpaceId = serializers.CharField(source='workSpace.workSpaceId', read_only=False)
+    class Meta:
+        model = models.Shape
+        fields = ('typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text', 'workSpaceId')
+    
+    def create(self, validated_data):
+        print("create")
+        print(validated_data)
+        workSpace_ = models.WorkSpace.objects.filter(workSpaceId = validated_data['workSpace']['workSpaceId'])[0]
+        print(workSpace_)
+        shape_ = models.Shape.objects.create(
+            typeOfShape = validated_data['typeOfShape'], 
+            x1 = validated_data['x1'], 
+            x2 = validated_data['x2'], 
+            y1 = validated_data['y1'], 
+            y2 = validated_data['y2'], 
+            colour = validated_data['colour'], 
+            thick = validated_data['thick'], 
+            text = validated_data['text'],
+            workSpace = workSpace_
+        )
+        return shape_
+
+# class DrawOnBoardSerializer(DocumentSerializer):
+#     class Meta:
+#         model = models.Shape
+#         fields = ('id', 'typeOfShape', 'x1', 'x2', 'y1', 'y2', 'colour', 'thick', 'text','workSpaceId')
