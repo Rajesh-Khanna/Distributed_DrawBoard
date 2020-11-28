@@ -35,9 +35,9 @@ class UpdateDrawBoard(generics.ListAPIView):
 
     def get_queryset(self):
         print("Request Data:")
-        print(self.request.data)
-        lastId = self.request.data['lastEntityId']
-        workSpaceId = self.request.data['workSpaceId']
+        print(self.request.query_params)
+        lastId = self.request.query_params.get('lastEntityId', None)
+        workSpaceId = self.request.query_params.get('workSpaceId', None)
         a = self.model.objects.filter(id__gte=lastId, workSpace__workSpaceId = workSpaceId)
         print(a)
         return self.model.objects.filter(id__gte=lastId, workSpace__workSpaceId = workSpaceId)
