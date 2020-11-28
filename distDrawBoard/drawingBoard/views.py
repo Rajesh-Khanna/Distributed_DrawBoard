@@ -10,7 +10,17 @@ class CreateWorkSpace(APIView):
 
     def post(self, request, format=None):
         print('-------------->',request,'<-------------------')
-        serializer = serializers.UserSerializer(data=request.data)
+        serializer = serializers.CreateWSSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class JoinWorkSpace(APIView):
+
+    def post(self, request, format=None):
+        print('-------------->',request,'<-------------------')
+        serializer = serializers.JoinWSSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
