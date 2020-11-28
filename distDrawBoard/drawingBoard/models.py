@@ -16,7 +16,7 @@ class WorkSpace(models.Model):
         return self.workSpaceId
 
 class Shape(models.Model):
-    typeOfShape = models.CharField(max_length=8)
+    typeOfShape = models.CharField(max_length=16)
     x1 = models.IntegerField()
     x2 = models.IntegerField()
     y1 = models.IntegerField()

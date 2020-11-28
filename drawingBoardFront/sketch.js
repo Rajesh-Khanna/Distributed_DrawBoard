@@ -1,23 +1,25 @@
 let currShape = new activeShape();
 let drawing = false;
-const allShapes = [];
+let myShapes = [];
+let othersShapes = [];
 
 function setup() {
-    let cnv = createCanvas(800, 600);
+    let cnv = createCanvas(1000, 600);
     cnv.parent('drawBoard');
     noFill();
+    textSize(16);
 }
 
 function draw() {
     background(225);
-    allShapes.forEach(element => {
+    myShapes.forEach(element => {
+        element.drawShape();
+    });
+    othersShapes.forEach(element => {
         element.drawShape();
     });
     if (drawing) {
         currShape.setEnd(mouseX, mouseY);
-        if (currShape.type === 'text') {
-
-        }
         currShape.drawShape();
     }
 }
@@ -30,12 +32,12 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-    if (drawing && currShape.props.type !== 'text') {
+    if (drawing) {
         currShape.setEnd(mouseX, mouseY);
         const copyObj = new Shape();
         copyObj.copy(currShape.clone());
-        allShapes.push(copyObj);
-        console.log(allShapes);
+        pushShape(copyObj)
+        console.log(myShapes);
         drawing = false;
     }
 }
@@ -48,6 +50,8 @@ window.addEventListener('load', () => {
     document.querySelector('#shapeSelector-text').addEventListener('click', () => {
         currShape.setType('text');
         document.querySelector('#textInputField').focus();
+        drawing = true;
+        currShape.setStart(0, 0);
     });
 
     document.querySelector('#textInputField').addEventListener('input', () => {
