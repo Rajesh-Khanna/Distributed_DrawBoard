@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    #myCred,
+    #guestCred {
+        border: 2px solid;
+        padding: 1em;
+    }
+    
+    #messageBoard {
+        border: 2px solid;
+        padding: 1em;
+        height: 100%;
+    }
+    
+    .singleMessage {
+        border: 1px solid #ecec6f;
+        padding: 0.25em;
+    }
+    
+    .myMessage {
+        border: 1px solid #ff8ac4;
+        padding: 0.25em;
+    }
+</style>
+<script type="module" src="sample.js"></script>
+
+<body>
+    <div id="signalChannel">
+        <div id='choice'>
+            <center>
+                <button id="startHOST">HOST</button> -OR-
+                <button id="startGUEST">GUEST</button>
+            </center>
+        </div>
+
+        <div id='HOSTPanel'>
+            <h4>My info</h4>
+            <div id="myCred">
+
+            </div>
+            <br>
+
+            <h6>Enter guest info:</h6>
+            <input type="text" id='guestInfo' />
+            <button class='submit'> Connect to guest </button>
+        </div>
+
+        <div id='GUESTPanel'>
+            <h4>Enter host info:</h4>
+            <input id="hostCred" />
+            <button class="submit"> Generate My info </button>
+            <br>
+            <h6>My info</h6>
+            <div id="guestCred">
+                ---
+            </div>
+        </div>
+
+        <div id="messageBoard">
+            <h4>Start Chating</h4>
+            <hr>
+            <div id="messages">
+
+            </div>
+            <div>
+                <input type="text" id='messageText'>
+                <button id='sendMessage'>send</button>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
