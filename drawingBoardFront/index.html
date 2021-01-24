@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>drawingBoardFront</title>
-
+    <script type="module" src="./modelJS/script.js"></script>
     <script src="main.js"></script>
     <script src="libraries/p5.js"></script>
     <script src="libraries/p5.dom.js"></script>
@@ -75,6 +75,14 @@
                 <button class="btn btn-outline-info m-1" id='inviteLinkButton'>copy invitation link </button>
             </div>
             <hr/>
+            <div id="signalChannel">
+                <input type="text" id='connectLink' placeholder="offer">
+                <input type="text" id='connectICELink' placeholder="ice">
+                <button onclick="makeCall()"> Send </button>
+                <div id="myLink"></div>
+                <div id="myICELink"></div>
+                <button onclick="receiveCall()"> recieve </button>
+            </div>
             <div class='text-center font-weight-bold mb-3'>
                 Participants
             </div>
