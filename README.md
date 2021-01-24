@@ -15,3 +15,6 @@ python -m http.server 8080
 ```
 ### Usage
 In your browser goto -> localhost:8080
+
+try p2p connection smaple at
+https://rajesh-khanna.github.io/Distributed_DrawBoard/drawingBoardFront/sample
