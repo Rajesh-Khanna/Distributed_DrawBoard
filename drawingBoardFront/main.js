@@ -10,12 +10,14 @@ class Shape {
         },
         type: 'line',
         color: 'black',
-        thick: 5,
+        thick: 1,
         text: 'x'
     }
 
     drawShape() {
-        if (this.props && this.props.start)
+        if (this.props && this.props.start) {
+            strokeWeight(this.props.thick)
+            textSize(11 + this.props.thick)
             switch (this.props.type) {
                 case 'circle':
                     const radius = Math.sqrt((this.props.end.x - this.props.start.x) ** 2 + (this.props.end.y - this.props.start.y) ** 2);
@@ -33,6 +35,7 @@ class Shape {
                     line(this.props.start.x, this.props.start.y, this.props.end.x, this.props.end.y);
                     break;
             }
+        }
     }
     clone() {
         return JSON.parse(JSON.stringify(this.props));
@@ -60,5 +63,8 @@ class activeShape extends Shape {
     }
     setText(iptext) {
         this.props.text = iptext;
+    }
+    setFont(thickness) {
+        this.props.thick = thickness;
     }
 }

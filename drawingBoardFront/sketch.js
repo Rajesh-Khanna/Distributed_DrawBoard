@@ -7,7 +7,7 @@ function setup() {
     let cnv = createCanvas(1000, 600);
     cnv.parent('drawBoard');
     noFill();
-    textSize(16);
+    // textSize(16);
 }
 
 function draw() {
@@ -57,4 +57,8 @@ window.addEventListener('load', () => {
     document.querySelector('#textInputField').addEventListener('input', () => {
         currShape.setText(document.querySelector('#textInputField').value);
     });
+
+    document.querySelector('#font-thickness-default').addEventListener('click', () => currShape.setFont(1));
+    document.querySelector('#font-thickness-1').addEventListener('click', () => currShape.setFont(5));
+    document.querySelector('#font-thickness-2').addEventListener('click', () => currShape.setFont(10));
 })
