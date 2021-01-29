@@ -16,14 +16,12 @@ class WorkSpace(models.Model):
         return self.workSpaceId
 
 class Shape(models.Model):
-    typeOfShape = models.CharField(max_length=16)
     x1 = models.IntegerField()
     x2 = models.IntegerField()
     y1 = models.IntegerField()
     y2 = models.IntegerField()
     colour = models.CharField(max_length=16, default="blue")
     thick = models.IntegerField()
-    text = models.CharField(max_length=256)
     workSpace = models.ForeignKey('WorkSpace', on_delete=models.CASCADE)
 
     def __str__(self):
