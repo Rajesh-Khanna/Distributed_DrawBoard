@@ -32,22 +32,30 @@ const handleMessage = (channel) => {
             sendMessage(channel);
         }
     });
+}
 
+
+const dataChannelListner = (channelEvent) => {
+    if (channel in channelEvent)
+        handleMessage(channelEvent.channel);
+    if (sketchChannel in channelEvent)
+        handleMessage(channelEvent.sketchChannel);
 }
 
 const startHOST = () => {
     console.log('starting host');
     document.querySelector('#choice').style.display = 'none';
     document.querySelector('#HOSTPanel').style.display = 'block';
-    const p2p = new p2pConnection(handleMessage);
+    const p2p = new p2pConnection(dataChannelListner);
     p2p.makeCall();
+    channelCount += 1;
 };
 
 const startGUEST = () => {
     console.log('starting guest');
     document.querySelector('#choice').style.display = 'none';
     document.querySelector('#GUESTPanel').style.display = 'block';
-    const p2p = new p2pConnection(handleMessage);
+    const p2p = new p2pConnection(dataChannelListner);
     p2p.receiveCall();
 };
 

@@ -1,37 +1,40 @@
 import signalChannel from './signalChannel.js';
-
 export default class p2pConnection {
 
-    constructor(handleMessage) {
-        this.handleMessage = handleMessage;
+    constructor(dataChannelListner) {
+        this.dataChannelListner = dataChannelListner;
     }
 
     async makeCall() {
         const sc = new signalChannel();
         const configuration = { 'iceServers': [{ 'urls': 'stun:stun.l.google.com:19302' }] }
-        const peerConnection = new RTCPeerConnection(configuration);
-        this.handleMessage(peerConnection.createDataChannel('channel'));
+        this.peerConnection = new RTCPeerConnection(configuration);
+        this.peerConnection.createDataChannel('channel');
+        this.peerConnection.ondatachannel = e => {
+            console.log({ e });
+            this.dataChannelListner(e)
+        }
 
         sc.onMessage(async message => {
             if (message) {
                 const remoteDesc = new RTCSessionDescription(message);
-                await peerConnection.setRemoteDescription(remoteDesc);
+                await this.peerConnection.setRemoteDescription(remoteDesc);
             }
             if (message.iceCandidate) {
                 try {
-                    await peerConnection.addIceCandidate(message.iceCandidate);
+                    await this.peerConnection.addIceCandidate(message.iceCandidate);
                 } catch (e) {
                     console.error('Error adding received ice candidate', e);
                 }
             }
         });
-        const offer = await peerConnection.createOffer();
-        await peerConnection.setLocalDescription(offer);
+        const offer = await this.peerConnection.createOffer();
+        await this.peerConnection.setLocalDescription(offer);
 
-        peerConnection.addEventListener("icegatheringstatechange", ev => {
-            switch (peerConnection.iceGatheringState) {
+        this.peerConnection.addEventListener("icegatheringstatechange", ev => {
+            switch (this.peerConnection.iceGatheringState) {
                 case "complete":
-                    sc.send(peerConnection.localDescription);
+                    sc.send(this.peerConnection.localDescription);
                     break;
             }
         });
@@ -41,23 +44,30 @@ export default class p2pConnection {
         const sc = new signalChannel(false);
         const configuration = { 'iceServers': [{ 'urls': 'stun:stun.l.google.com:19302' }] }
 
-        const peerConnection = new RTCPeerConnection(configuration);
-        peerConnection.ondatachannel = e => {
-            this.handleMessage(e.channel);
+        this.peerConnection = new RTCPeerConnection(configuration);
+
+        this.peerConnection.ondatachannel = e => {
+            console.log({ e });
+            this.dataChannelListner(e)
         }
         sc.onMessage(async message => {
             if (message) {
-                peerConnection.setRemoteDescription(new RTCSessionDescription(message));
-                const answer = await peerConnection.createAnswer();
-                await peerConnection.setLocalDescription(answer);
-                peerConnection.addEventListener("icegatheringstatechange", ev => {
-                    switch (peerConnection.iceGatheringState) {
+                this.peerConnection.setRemoteDescription(new RTCSessionDescription(message));
+                const answer = await this.peerConnection.createAnswer();
+                await this.peerConnection.setLocalDescription(answer);
+                this.peerConnection.addEventListener("icegatheringstatechange", ev => {
+                    switch (this.peerConnection.iceGatheringState) {
                         case "complete":
-                            sc.send(peerConnection.localDescription);
+                            sc.send(this.peerConnection.localDescription);
                             break;
                     }
                 });
             }
         });
     }
+
+    createDataChannel(channelName) {
+        return this.peerConnection.createDataChannel(channelName);
+    }
+
 }

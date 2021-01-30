@@ -11,87 +11,100 @@
     <script src="libraries/p5.js"></script>
     <script src="libraries/p5.dom.js"></script>
     <script src="libraries/p5.sound.js"></script>
+    <script type="module" src="syncDraw.js"></script>
     <script src="sketch.js"></script>
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.css" />
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
-        canvas {
-            margin: auto;
-        }
-        
-        #entryPage {
-            visibility: none;
-        }
-
-        #workSpace {
-            visibility: hidden;
-        }
-        
-        #joinSpace {
-            display: none;
-        }
-        
-        #createSpace {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="row m-4">
-        <div class="col text-center">
-            <h4>
-                Welcome to collaborative drawing board
-            </h4>
+
+    <div id="signalChannel">
+        <div id='choice'>
+            <center>
+                <button id="startHOST">Create Room</button> -OR-
+                <button id="startGUEST">Join Room</button>
+            </center>
+        </div>
+
+        <div id='HOSTPanel'>
+            <h4>My info</h4>
+            <div id="myCred">
+
+            </div>
+            <br>
+
+            <h6>Enter guest info:</h6>
+            <input type="text" id='guestInfo' />
+            <button class='submit'> Connect to guest </button>
+        </div>
+
+        <div id='GUESTPanel'>
+            <h4>Enter host info:</h4>
+            <input id="hostCred" />
+            <button class="submit"> Generate My info </button>
+            <br>
+            <h6>My info</h6>
+            <div id="guestCred">
+                ---
+            </div>
+        </div>
+
+
+        <div id="distDrawBoard">
+            <div class="row">
+                <div class="col">
+                    <h4>
+                        Welcome to collaborative drawing board
+                    </h4>
+                    <div class="row m-4" id='workSpace'>
+                        <div class="col">
+                            <div id="drawBoard"></div>
+                            <div>
+                                Font:
+                                <button class="btn btn-outline-secondary m-1" id='font-thickness-default'>1px</button>
+                                <button class="btn btn-outline-secondary m-1" id='font-thickness-1'>5px</button>
+                                <button class="btn btn-outline-secondary m-1" id='font-thickness-2'>10px</button>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-secondary m-1" id='pen'>pen</button>
+                                <button class="btn btn-outline-secondary m-1" id='eraser'>eraser</button>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column">
+                                <input type="text" id='inviteLink'>
+                                <button class="btn btn-outline-info m-1" id='inviteLinkButton'>copy invitation link </button>
+                            </div>
+                            <hr/>
+                            <div class='text-center font-weight-bold mb-3'>
+                                Participants
+                            </div>
+                            <div>
+                                <ul id='usersOnBoard'>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div id="messageBoard">
+                        <h4>Start Chating</h4>
+                        <hr>
+                        <div id="messages">
+
+                        </div>
+                        <div>
+                            <input type="text" id='messageText'>
+                            <button id='sendMessage'>send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row m-4" id='entryPage'>
-        <div class="col">
-            <div width='300px' class='flex-column text-center'>
-                <center>
-                    <input type='text' id='username' value='participant' /> <br>
-                    <button class='m-2 btn btn-primary ' id='createSpace' onclick="createWorkSpace()">create Work Space</button>
-                    <button class='m-2 btn btn-primary ' id='joinSpace' onclick="joinWorkSpace()">join Work Space</button>
-                </center>
-            </div>
-        </div>
-    </div>
-    <div class="row m-4" id='workSpace'>
-        <div class="col">
-            <div id="drawBoard"></div>
-            <div>
-                Font:
-                <button class="btn btn-outline-secondary m-1" id='font-thickness-default'>1px</button>
-                <button class="btn btn-outline-secondary m-1" id='font-thickness-1'>5px</button>
-                <button class="btn btn-outline-secondary m-1" id='font-thickness-2'>10px</button>
-            </div>
-            <div>
-                <button class="btn btn-outline-secondary m-1" id='pen'>pen</button>
-                <button class="btn btn-outline-secondary m-1" id='eraser'>eraser</button>
-            </div>
-        </div>
-        <div class="col">
-            <div class="d-flex flex-column">
-                <input type="text" id='inviteLink'>
-                <button class="btn btn-outline-info m-1" id='inviteLinkButton'>copy invitation link </button>
-            </div>
-            <hr/>
-            <div class='text-center font-weight-bold mb-3'>
-                Participants
-            </div>
-            <div>
-                <ul id='usersOnBoard'>
-                </ul>
-            </div>
-        </div>
-    </div>
+
 </body>
-<script src="./index.js"></script>
-<script src="./syncDraw.js"></script>
 
 </html>

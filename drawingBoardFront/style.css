@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+canvas {
+    margin: auto;
+}
+
+#myCred,
+#guestCred {
+    border: 2px solid;
+    padding: 1em;
+}
+
+#messageBoard {
+    border: 2px solid;
+    padding: 1em;
+    height: 100%;
+}
+
+.singleMessage {
+    border: 1px solid #ecec6f;
+    padding: 0.25em;
+}
+
+.myMessage {
+    border: 1px solid #ff8ac4;
+    padding: 0.25em;
+}
+
+#distDrawBoard {
+    display: none;
+}

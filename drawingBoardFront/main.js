@@ -14,10 +14,9 @@ class Shape {
     drawShape() {
         if (this.props && this.props.start) {
             strokeWeight(this.props.thick);
-            if (this.props.color == 'eraser'){
+            if (this.props.color == 'eraser') {
                 stroke(225);
-            }
-            else {
+            } else {
                 stroke(this.props.color);
             }
             line(this.props.start.x, this.props.start.y, this.props.end.x, this.props.end.y);
@@ -27,7 +26,6 @@ class Shape {
         return JSON.parse(JSON.stringify(this.props));
     }
     copy(props) {
-        console.log({ props });
         this.props = {...props };
     }
 }
@@ -43,9 +41,6 @@ class activeShape extends Shape {
     }
     setColor(shapeColor) {
         this.props.color = shapeColor;
-    }
-    setFont(thickness) {
-        this.props.thick = thickness;
     }
     setFont(thickness) {
         this.props.thick = thickness;
