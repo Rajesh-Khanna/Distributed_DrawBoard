@@ -96,6 +96,7 @@ const initialSetup = (syncBoard) => {
     document.querySelector('#startGUEST').addEventListener('click', syncBoard.startGUEST);
 
     document.querySelector('#eraser').addEventListener('click', () => currShape.setColor('eraser'));
+    document.querySelector('#pen').addEventListener('click', () => currShape.setColor('black'));
 
     document.querySelector('#font-thickness-default').addEventListener('click', () => currShape.setFont(1));
     document.querySelector('#font-thickness-1').addEventListener('click', () => currShape.setFont(5));
