@@ -47,4 +47,7 @@ class activeShape extends Shape {
     setFont(thickness) {
         this.props.thick = thickness;
     }
+    setFont(thickness) {
+        this.props.thick = thickness;
+    }
 }
