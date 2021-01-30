@@ -8,33 +8,19 @@ class Shape {
             x: 0,
             y: 0,
         },
-        type: 'line',
         color: 'black',
         thick: 1,
-        text: 'x'
     }
-
     drawShape() {
         if (this.props && this.props.start) {
-            strokeWeight(this.props.thick)
-            textSize(11 + this.props.thick)
-            switch (this.props.type) {
-                case 'circle':
-                    const radius = Math.sqrt((this.props.end.x - this.props.start.x) ** 2 + (this.props.end.y - this.props.start.y) ** 2);
-                    ellipse(this.props.start.x, this.props.start.y, radius * 2, radius * 2);
-                    break;
-                case 'rectangle':
-                    rect(this.props.start.x, this.props.start.y, this.props.end.x - this.props.start.x, this.props.end.y - this.props.start.y);
-                    break;
-                case 'text':
-                    fill(0);
-                    text(this.props.text, this.props.end.x, this.props.end.y);
-                    noFill();
-                    break;
-                default:
-                    line(this.props.start.x, this.props.start.y, this.props.end.x, this.props.end.y);
-                    break;
+            strokeWeight(this.props.thick);
+            if (this.props.color == 'eraser'){
+                stroke(225);
             }
+            else {
+                stroke(this.props.color);
+            }
+            line(this.props.start.x, this.props.start.y, this.props.end.x, this.props.end.y);
         }
     }
     clone() {
@@ -55,14 +41,11 @@ class activeShape extends Shape {
         this.props.end.x = x;
         this.props.end.y = y;
     }
-    setType(shapetype) {
-        this.props.type = shapetype;
-    }
     setColor(shapeColor) {
         this.props.color = shapeColor;
     }
-    setText(iptext) {
-        this.props.text = iptext;
+    setFont(thickness) {
+        this.props.thick = thickness;
     }
     setFont(thickness) {
         this.props.thick = thickness;
